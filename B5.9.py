@@ -17,8 +17,7 @@ def time_this(NUM_RUNS=10):
 
     # Тест выполнения
 @time_this(NUM_RUNS=10)    
-def say_hello(name):
-    return "Привет, " + name
-say_hi = say_hello
-
-print(say_hi("Странник"))
+def f():
+    for j in range(10000000):
+        pass    
+f()
