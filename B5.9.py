@@ -11,7 +11,7 @@ def time_this(NUM_RUNS=10):
                 avg_time += (t1 - t0)
             avg_time /= NUM_RUNS
             fn = func_to_run.__name__
-            print("Среднее время выполнения %s за %s запусков: %.5f секунд" % (fn, NUM_RUNS, avg_time))
+            print("Выполнение заняло %.5f секунд" % avg_time)
         return func
     return dec
 
@@ -21,3 +21,27 @@ def f():
     for j in range(10000000):
         pass    
 f()
+
+class TAIMER:
+	def __init__(self, NUM_RUNS=10):
+	 	self.NUM_RUNS = NUM_RUNS
+	def __call__(self, func):
+		def wrap(*args):
+			avg_time = 0
+			for _ in range(self.NUM_RUNS):
+				t0 = time.time()
+				func()
+				t1 = time.time()
+			avg_time += (t1 - t0)
+			avg_time /= self.NUM_RUNS
+			print("Выполнение заняло %.5f секунд" % avg_time)
+		return wrap
+
+T = TAIMER(10)
+
+@T
+def fTAIMER():
+    for j in range(10000000):
+        pass    
+
+fTAIMER()
